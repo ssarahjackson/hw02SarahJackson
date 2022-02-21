@@ -2,6 +2,7 @@ import java.util.ArrayList;
 public class Polynomial
 {
     private String passedPoly;
+    private String substring;
 
     ArrayList<Term> polynomialTerms = new ArrayList<>();
     public Polynomial(String polynomial)
@@ -15,12 +16,13 @@ public class Polynomial
         {
             if(passedPoly.charAt(i) == '-' ||passedPoly.charAt(i) == '+')
             {
-                String substring = passedPoly.substring(0, i);
+                substring = passedPoly.substring(0, i);
                 passedPoly = passedPoly.substring(i+1);//removes the term from the polynomial
                 Term newTerm = new Term(substring);
                 newTerm.parseSubstring();
                 substring = "";
                 polynomialTerms.add(newTerm);
+                i = 0;
             }
             else if((passedPoly.length()-1) == i)
             {
@@ -36,9 +38,15 @@ public class Polynomial
     }
     public void printTerms()
     {
-        for (Term polynomialTerm : polynomialTerms)
+        for(int i = 0; i < polynomialTerms.size(); i++)
         {
-            System.out.println(polynomialTerm.toString());
+            if(i!=0)
+            {
+                System.out.print("+");
+            }
+            polynomialTerms.get(i).printTerm();
+
+
         }
     }
 }
